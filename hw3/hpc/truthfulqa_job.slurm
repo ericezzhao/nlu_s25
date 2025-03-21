@@ -11,7 +11,7 @@
 #SBATCH --gres=gpu:1
 #SBATCH --job-name=truthfulqa
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=your_email_address@nyu.edu
+#SBATCH --mail-user=ez2545@nyu.edu
 #SBATCH --output="truthfulqa.out"
 
 

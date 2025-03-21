@@ -19,7 +19,9 @@ def cosine_sim(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     :return: An array of shape (m, n), where the entry in row i and
         column j is the cosine similarity between x[i] and y[j]
     """
-    raise NotImplementedError("Problem 3b has not been completed yet!")
+    x_normalized = x / (np.linalg.norm(x, axis = 1, keepdims=True))
+    y_normalized = y / (np.linalg.norm(y, axis = 1, keepdims=True))
+    return np.dot(x_normalized, y_normalized.T)
 
 
 def get_closest_words(embeddings: Embeddings, vectors: np.ndarray,
@@ -37,7 +39,16 @@ def get_closest_words(embeddings: Embeddings, vectors: np.ndarray,
         k words that are closest to vectors[i] in the embedding space,
         not necessarily in order
     """
-    raise NotImplementedError("Problem 3c has not been completed yet!")
+    result = []
+    words = embeddings.words
+    matrix = embeddings.vectors
+    closest = cosine_sim(vectors, matrix)
+    for j in range(len(vectors)):
+        top_k = np.argpartition(-closest[j], k)[:k]
+        closest_words = [words[i] for i in top_k]
+        result.append(closest_words)
+    
+    return result
 
 
 # This type alias represents the format that the testing data should be
@@ -59,8 +70,19 @@ def load_analogies(filename: str) -> AnalogiesDataset:
         format of the data is described in the problem set and in the
         docstring for the AnalogiesDataset type alias
     """
-    raise NotImplementedError("Problem 2b has not been completed yet!")
+    analogies = {}
+    category = None
 
+    with open(filename, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith(":"):
+                category = line[2:]
+                analogies[category] = []
+            else:
+                words = tuple(line.split())
+                analogies[category].append(words)
+    return analogies
 
 def run_analogy_test(embeddings: Embeddings, test_data: AnalogiesDataset,
                      k: int = 1) -> Dict[str, float]:
@@ -80,4 +102,14 @@ def run_analogy_test(embeddings: Embeddings, test_data: AnalogiesDataset,
         that maps each relation type to the analogy question accuracy
         attained by embeddings on analogies from that relation type
     """
-    raise NotImplementedError("Problem 3d has not been completed yet!")
+    results = {}
+    for relation, analogies in test_data.items():
+        correct = 0
+        total = len(analogies)
+        for w1, w2, w3, w4 in analogies:
+            target = embeddings[[w2.lower()]] - embeddings[[w1.lower()]] + embeddings[[w3.lower()]]
+            closest = get_closest_words(embeddings, target.reshape(1, -1), k)[0]
+            correct += w4.lower() in closest
+        results[relation] = correct / total if total > 0 else 0
+    return results
+    
