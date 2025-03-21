@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Please adjust these settings according to your needs.
-#SBATCH --account=ds_ga_1012-2025sp
+#SBATCH --account=ez2545
 #SBATCH --partition=gpu_misc_v100
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
