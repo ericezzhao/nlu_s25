@@ -16,7 +16,7 @@
 
 
 module purge
-cd path/to/your/code
+cd /scratch/ez2545/nlu_s25/hw3
 OVERLAY_FILE=path/to/your/singularity/overlay/file
 SINGULARITY_IMAGE=path/to/your/singularity/image/file
 singularity exec --nv \
