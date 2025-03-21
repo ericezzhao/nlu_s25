@@ -2,7 +2,7 @@
 
 # Please adjust these settings according to your needs.
 #SBATCH --account=ds_ga_1012-2024sp
-#SBATCH --partition=n1s8-v100-1
+#SBATCH --partition=gpu_misc_v100
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -17,8 +17,9 @@
 
 module purge
 cd /scratch/ez2545/nlu_s25/hw3
-OVERLAY_FILE=path/to/your/singularity/overlay/file
-SINGULARITY_IMAGE=path/to/your/singularity/image/file
-singularity exec --nv \
-	    --overlay $OVERLAY_FILE $SINGULARITY_IMAGE \
-	    /bin/bash -c "source /ext3/env.sh; bash hpc/run_truthfulqa_evaluation.sh"
+bash run_truthfulqa_evaluation.sh
+# OVERLAY_FILE=path/to/your/singularity/overlay/file
+# SINGULARITY_IMAGE=path/to/your/singularity/image/file
+# singularity exec --nv \
+	    # --overlay $OVERLAY_FILE $SINGULARITY_IMAGE \
+	    # /bin/bash -c "source /ext3/env.sh; bash hpc/run_truthfulqa_evaluation.sh"
