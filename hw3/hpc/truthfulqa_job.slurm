@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=truthfulqa
-#SBATCH --partition=v100_1
+#SBATCH --partition=v100
 #SBATCH --gres=gpu:v100:1
 #SBATCH --output=./%j_%x.out
 #SBATCH --error=./%j_%x.err
