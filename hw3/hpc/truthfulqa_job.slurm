@@ -18,11 +18,6 @@ module purge
 cd /scratch/ez2545/nlu_s25/hw3
 module load cuda/11.6.2
 source llava_env/bin/activate
+echo "Checking installed packages..."
+pip show transformers evaluate || pip install transformers evaluate
 bash run_truthfulqa_evaluation.sh
-
-
-# OVERLAY_FILE=path/to/your/singularity/overlay/file
-# SINGULARITY_IMAGE=path/to/your/singularity/image/file
-# singularity exec --nv \
-	    # --overlay $OVERLAY_FILE $SINGULARITY_IMAGE \
-	    # /bin/bash -c "source /ext3/env.sh; bash hpc/run_truthfulqa_evaluation.sh"
