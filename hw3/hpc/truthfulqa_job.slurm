@@ -16,7 +16,11 @@
 
 module purge
 cd /scratch/ez2545/nlu_s25/hw3
+module load cuda/11.6.2
+source llava_env/bin/activate
 bash run_truthfulqa_evaluation.sh
+
+
 # OVERLAY_FILE=path/to/your/singularity/overlay/file
 # SINGULARITY_IMAGE=path/to/your/singularity/image/file
 # singularity exec --nv \
