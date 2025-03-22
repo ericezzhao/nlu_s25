@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=truthfulqa
 #SBATCH --account=ds_ga_1012-2025sp
-#SBATCH --partition=n1s8-v100-1
+#SBATCH --partition=v100
 #SBATCH --gres=gpu:v100:1
 #SBATCH --output=./%j_%x.out
 #SBATCH --error=./%j_%x.err
