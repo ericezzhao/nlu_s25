@@ -15,7 +15,7 @@
 
 
 module purge
-cd /scratch/ez2545/nlu_s25/hw3
+cd /scratch/ez2545/nlu_s25/hw3/hpc
 module load cuda/11.6.2
 source llava_env/bin/activate
 echo "Checking installed packages..."
