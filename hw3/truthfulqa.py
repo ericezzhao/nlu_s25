@@ -80,10 +80,10 @@ class MultipleChoicePipeline(Pipeline):
         self.num_choices = num_choices
 
         # Load the LLM and tokenizer
-        lm = AutoModelForCausalLM.from_pretrained(model)
+        lm = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float16).cuda()
         lm.eval()
 
-        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False, from_tf=True)
+        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
         if tokenizer.pad_token is None:  # GPT-2 doesn't have a pad token
             tokenizer.pad_token = tokenizer.eos_token
 
