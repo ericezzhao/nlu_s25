@@ -17,7 +17,7 @@ import torch
 import torch.nn as nn
 from datasets import load_dataset, Dataset
 from tqdm import tqdm
-from transformers import Pipeline, AutoModelForCausalLM, AutoTokenizer
+from transformers import Pipeline, AutoModelForCausalLM, AutoTokenizer, OPTForCausalLM, OPTTokenizer
 
 """ Helper functions """
 
@@ -78,34 +78,53 @@ class MultipleChoicePipeline(Pipeline):
         :param num_choices: The number of answer choices per question
         """
         self.num_choices = num_choices
+        try:
+            # Load the LLM and tokenizer
+            lm = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float16, device_map='auto', low_cpu_mem_usage=True)
+            lm.eval()
+            try:
+                tokenizer = OPTTokenizer.from_pretrained(
+                    model, 
+                    use_fast=False,
+                    trust_remote_code=True
+                )
+            except Exception as e:
+                print(f"OPT Tokenizer load failed: {e}")
+                # Fallback to generic tokenizer
+                tokenizer = AutoTokenizer.from_pretrained(
+                    model, 
+                    use_fast=False, 
+                    trust_remote_code=True
+                )
 
-        # Load the LLM and tokenizer
-        lm = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float16).cuda()
-        lm.eval()
+            tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
+            if tokenizer.pad_token is None:  # GPT-2 doesn't have a pad token
+                tokenizer.pad_token = tokenizer.eos_token
 
-        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
-        if tokenizer.pad_token is None:  # GPT-2 doesn't have a pad token
-            tokenizer.pad_token = tokenizer.eos_token
+            # Use GPU if it's available
+            device = 0 if torch.cuda.is_available() else None
+            super().__init__(lm, tokenizer, device=device)
+            self.model.to(self.device)
 
-        # Use GPU if it's available
-        device = 0 if torch.cuda.is_available() else None
-        super().__init__(lm, tokenizer, device=device)
-        self.model.to(self.device)
+            # Initialize loss function (make it ignore pad tokens). Note the
+            # use of the reduction="none" keyword argument.
+            self.loss_fn = nn.CrossEntropyLoss(
+                ignore_index=tokenizer.pad_token_id, reduction="none")
 
-        # Initialize loss function (make it ignore pad tokens). Note the
-        # use of the reduction="none" keyword argument.
-        self.loss_fn = nn.CrossEntropyLoss(
-            ignore_index=tokenizer.pad_token_id, reduction="none")
+            # Demonstrations for few-shot prompting. When demonstrations are
+            # used, this variable always ends with \n\n. When demonstrations
+            # are not used, this variable is the empty string.
+            self._demos = ""
 
-        # Demonstrations for few-shot prompting. When demonstrations are
-        # used, this variable always ends with \n\n. When demonstrations
-        # are not used, this variable is the empty string.
-        self._demos = ""
-
-        # When there is a system prompt, this variable always begins
-        # with a space, followed by the system prompt. When there is no
-        # system prompt, this variable is the empty string.
-        self._system_prompt = ""
+            # When there is a system prompt, this variable always begins
+            # with a space, followed by the system prompt. When there is no
+            # system prompt, this variable is the empty string.
+            self._system_prompt = ""
+        except Exception as e:
+            print(f"Comprehensive OPT model initialization error: {e}")
+            import traceback
+            traceback.print_exc()
+            raise 
 
     @property
     def name(self):
