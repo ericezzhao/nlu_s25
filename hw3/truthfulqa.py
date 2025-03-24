@@ -83,7 +83,7 @@ class MultipleChoicePipeline(Pipeline):
         lm = AutoModelForCausalLM.from_pretrained(model)
         lm.eval()
 
-        tokenizer = AutoTokenizer.from_pretrained(model)
+        tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False, from_tf=True)
         if tokenizer.pad_token is None:  # GPT-2 doesn't have a pad token
             tokenizer.pad_token = tokenizer.eos_token
 
