@@ -383,7 +383,7 @@ if __name__ == "__main__":
     # Load pipeline and prompts
     lm = MultipleChoicePipeline(model=args.model)
     if not args.no_demos:
-        lm.load_demonstrations("prompt_templates/" + args.demos)
+        lm.load_demonstrations("/scratch/ez2545/nlu_s25/hw3/prompt_templates/" + args.demos)
     if args.system_prompt != "":
         lm.set_system_prompt(args.system_prompt)
 
