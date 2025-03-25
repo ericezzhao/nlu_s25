@@ -1,0 +1,28 @@
+/opt/slurm/data/slurmd/job58641545/slurm_script: line 20: llava_env/bin/activate: No such file or directory
+Checking installed packages...
+Name: transformers
+Version: 4.50.0
+Summary: State-of-the-art Machine Learning for JAX, PyTorch and TensorFlow
+Home-page: https://github.com/huggingface/transformers
+Author: The Hugging Face team (past and future) with the help of all our contributors (https://github.com/huggingface/transformers/graphs/contributors)
+Author-email: transformers@huggingface.co
+License: Apache 2.0 License
+Location: /scratch/ez2545/nlu_s25/hw3/llava_env/lib/python3.9/site-packages
+Requires: tokenizers, safetensors, tqdm, requests, numpy, filelock, regex, packaging, huggingface-hub, pyyaml
+Required-by: 
+---
+Name: evaluate
+Version: 0.4.3
+Summary: HuggingFace community-driven open-source library of evaluation
+Home-page: https://github.com/huggingface/evaluate
+Author: HuggingFace Inc.
+Author-email: leandro@huggingface.co
+License: Apache 2.0
+Location: /scratch/ez2545/nlu_s25/hw3/llava_env/lib/python3.9/site-packages
+Requires: requests, fsspec, packaging, datasets, huggingface-hub, numpy, pandas, multiprocess, tqdm, xxhash, dill
+Required-by: 
+python: can't open file '/scratch/ez2545/nlu_s25/hw3/hpc/truthfulqa.py': [Errno 2] No such file or directory
+python: can't open file '/scratch/ez2545/nlu_s25/hw3/hpc/truthfulqa.py': [Errno 2] No such file or directory
+python: can't open file '/scratch/ez2545/nlu_s25/hw3/hpc/truthfulqa.py': [Errno 2] No such file or directory
+python: can't open file '/scratch/ez2545/nlu_s25/hw3/hpc/truthfulqa.py': [Errno 2] No such file or directory
+python: can't open file '/scratch/ez2545/nlu_s25/hw3/hpc/truthfulqa.py': [Errno 2] No such file or directory
