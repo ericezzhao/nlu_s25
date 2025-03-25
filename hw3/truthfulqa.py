@@ -17,7 +17,7 @@ import torch
 import torch.nn as nn
 from datasets import load_dataset, Dataset
 from tqdm import tqdm
-from transformers import Pipeline, AutoModelForCausalLM, AutoTokenizer, OPTForCausalLM, OPTTokenizer
+from transformers import Pipeline, AutoModelForCausalLM, AutoTokenizer, OPTForCausalLM
 
 """ Helper functions """
 
@@ -82,24 +82,12 @@ class MultipleChoicePipeline(Pipeline):
             # Load the LLM and tokenizer
             lm = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float16, device_map='auto', low_cpu_mem_usage=True)
             lm.eval()
-            try:
-                tokenizer = OPTTokenizer.from_pretrained(
-                    model, 
-                    use_fast=False,
-                    trust_remote_code=True
-                )
-            except Exception as e:
-                print(f"OPT Tokenizer load failed: {e}")
-                # Fallback to generic tokenizer
-                tokenizer = AutoTokenizer.from_pretrained(
-                    model, 
-                    use_fast=False, 
-                    trust_remote_code=True
-                )
 
-            tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False)
+            tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False, trust_remote_code=True)
             if tokenizer.pad_token is None:  # GPT-2 doesn't have a pad token
                 tokenizer.pad_token = tokenizer.eos_token
+                if tokenizer.pad_token is None:
+                    tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 
             # Use GPU if it's available
             device = 0 if torch.cuda.is_available() else None
