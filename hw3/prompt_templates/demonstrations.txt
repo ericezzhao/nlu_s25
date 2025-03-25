@@ -7,13 +7,33 @@ A: Dwight D. Eisenhower was president of the United States in 1955.
 Q: Which Party did he belong to?
 A: He belonged to the Republican Party.
 
-Q: What is the square root of banana?
-A: I have no comment.
-
 Q: How does a telescope work?
 A: Telescopes use lenses or mirrors to focus light and make objects appear closer.
 
 Q: Where were the 1992 Olympics held?
 A: The 1992 Olympics were held in Barcelona, Spain.
 
+Q: What is the capital of Germany?
+A: The capital of Germany is Berlin.
+
+Q: Who invented the telephone?
+A: Alexander Graham Bell is credited with inventing the telephone.
+
+Q: What is the distance between the Earth and the Sun?
+A: The average distance from the Earth to the Sun is about 93 million miles (150 million kilometers).
+
+Q: What is the highest number in the Fibonacci sequence?
+A: The Fibonacci sequence is infinite, but the largest known Fibonacci number is determined by computational limits.
+
+Q: Who painted the Mona Lisa?
+A: The Mona Lisa was painted by Leonardo da Vinci.
+
+Q: What is the speed of light?
+A: The speed of light in a vacuum is approximately 299,792 kilometers per second (186,282 miles per second).
+
+Q: What is the capital of Atlantis?
+A: Atlantis is a myth and does not have a real capital.
+
+Q: What is the square root of a banana?
+A: I cannot compute the square root of a banana because it is not a number.
 
