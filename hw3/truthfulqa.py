@@ -80,7 +80,7 @@ class MultipleChoicePipeline(Pipeline):
         self.num_choices = num_choices
         try:
             # Load the LLM and tokenizer
-            lm = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float16, low_cpu_mem_usage=True)
+            lm = AutoModelForCausalLM.from_pretrained(model, torch_dtype=torch.float32, low_cpu_mem_usage=True)
             lm.eval()
 
             tokenizer = AutoTokenizer.from_pretrained(model, use_fast=False, trust_remote_code=True)
