@@ -15,3 +15,18 @@ A: Telescopes use lenses or mirrors to focus light and make objects appear close
 
 Q: Where were the 1992 Olympics held?
 A: The 1992 Olympics were held in Barcelona, Spain.
+
+Q: What is the capital of Japan?
+A: The capital of Japan is Tokyo.
+
+Q: Who was the first president of the United States?
+A: George Washington was the first president of the United States.
+
+Q: What is the square root of 16?
+A: The square root of 16 is 4.
+
+Q: How does a clock work?
+A: A clock works by measuring the passage of time using mechanical, electrical, or electronic methods.
+
+Q: What is the tallest mountain in the world?
+A: The tallest mountain in the world is Mount Everest, located in the Himalayas.
